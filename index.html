@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>疫情数据可视化</title>
+	<style>
+		*{margin: 0px;padding: 0px;}
+		body{
+			background-color: #FFAEB9;
+		}
+		#head{
+			width: 800px;
+			height: 180px;
+			margin: 0 auto;
+		}
+		#head>img{
+			width: 100%;
+			height: 100%;
+		}
+		.block{
+			width: 800px;
+			height: auto;
+			margin: 0 auto;
+			background-color: #fff;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+		}
+		.box{
+			width: 800px;
+			height: 600px;
+			margin:  0 auto;
+			position: relative;
+			padding: 20px 0;
+		}
+		#china{
+			width: 800px;
+			height: 600px;
+			border-bottom-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+			border-bottom: 3px solid rgb(230,157,176);
+		}
+		#btn{
+			position:absolute;
+			right: 20px;
+			top: 20px;
+			display:none;
+		}
+		#line{
+			padding: 20px 0;
+			width: 800px;
+			height: 600px;
+			border-bottom-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+			border-bottom: 3px solid rgb(230,157,176);
+		}
+		#hubei{
+			padding: 20px 0;
+			width: 800px;
+			height: 600px;
+			border-bottom-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+			border-bottom: 3px solid rgb(230,157,176);
+		}
+		#author{
+			width:800px;
+			padding: 8px 0px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<img src="img.jpeg" alt="">
+	</div>
+	<div class="block">
+		<div class="box">
+			<div id="china"></div>
+			<input id="btn" type="button" value="返回中国地图" onclick="China()">
+		</div>
+		<div id="line"></div>
+		<div id="hubei"></div>
+		<p id="author">林汶佳--春来班第一期WEB方向--疫情小分析项目--数据来源百度查找</p>
+	</div>
+	<textarea id="province01" hidden>
+1 湖北 67800
+2 广东 1395
+3 河南 1273
+4 浙江 1234
+5 湖南 1018
+6 安徽 990
+7 江西 935
+8 山东 762
+9 江苏 631
+10 重庆 576
+11 四川 541
+12 北京 491
+13 黑龙江 484
+14 上海 371
+15 河北 318
+16 福建 299
+17 香港 256
+18 广西 254
+19 陕西 247
+20 云南 176
+21 海南 168
+22 贵州 146
+23 天津 137
+24 台湾 135
+25 甘肃 134
+26 山西 133
+27 辽宁 126
+28 吉林 93
+29 新疆 76
+30 宁夏 75
+31 内蒙古 75
+32 青海 18
+33 澳门 17
+34 西藏 1
+	</textarea>
+	<textarea id="province02" hidden>
+name.1=北京(BeiJing)
+name.2=上海(ShangHai)
+name.3=天津(TianJin)
+name.4=重庆(ChongQing)
+name.5=香港(XiangGang)
+name.6=澳门(Aomen)
+name.7=安徽(AnHui)
+name.8=福建(FuJian)
+name.9=广东(GuangDong)
+name.10=广西(GuangXi)
+name.11=贵州(GuiZhou)
+name.12=甘肃(GanSu)
+name.13=海南(HaiNan)
+name.14=河北(HeBei)
+name.15=河南(HeNan)
+name.16=黑龙江(HeiLongJiang)
+name.17=湖北(HuBei)
+name.18=湖南(HuNan)
+name.19=吉林(JiLin)
+name.20=江苏(JiangSu)
+name.21=江西(JiangXi)
+name.22=辽宁(LiaoNing)
+name.23=内蒙古(NeiMengGu)
+name.24=宁夏(NingXia)
+name.25=青海(QingHai)
+name.26=陕西(ShanXi)
+name.27=山西(ShanXi)
+name.28=山东(ShanDong)
+name.29=四川(SiChuan)
+name.30=台湾(TaiWan)
+name.31=西藏(XiZang)
+name.32=新疆(XinJiang)
+name.33=云南(YunNan)
+name.34=浙江(ZheJiang)
+	</textarea>
+	<textarea id="quanguo" hidden>
+2.20 75993 55475 5206 18279
+2.21 76392 53371 5365 20673
+2.22 77041 51689 4148 22907
+2.23 77262 49910 3434 24757
+2.24 77779 47760 2824 27353
+2.25 78190 45697 2491 29775
+2.26 78630 43352 2358 32531
+2.27 78959 40011 2308 36157
+2.28 79389 37502 1418 39049
+2.29 79968 35420 851 41675
+3.01 80174 32741 715 44518
+3.02 80302 30096 587 47260
+3.03 80422 27524 520 49914
+3.04 80565 25441 522 52109
+3.05 80710 23872 482 53793
+3.06 80813 22263 502 55477
+3.07 80859 20616 458 57143
+3.08 80904 19097 421 58684
+3.09 80924 17802 349 59982
+3.10 80955 16226 285 61567
+3.11 80980 14920 253 62887
+3.12 81003 13607 147 64216
+3.13 81021 12178 34 65649
+3.14 81048 10822 113 67022
+3.15 81077 9996 134 68763
+3.16 81116 9086 128 68799
+3.17 81151 8184 119 69725
+3.18 81235 7438 105 70547
+3.19 81300 6763 104 71284
+	</textarea>
+	<textarea id="geo" hidden>
+武汉市 50005 114.30 30.60
+孝感市 3518 113.92 30.93
+黄冈市 2907 114.87 30.45
+荆州市 1580 112.23 30.33
+鄂州市 1394 114.88 30.40
+随州市 1307 113.37 31.72
+襄阳市 1175 112.20 32.08
+黄石市 1015 115.03 30.20
+宜昌市 931 111.28 30.70
+荆门市 928 112.20 31.03
+咸宁市 836 114.32 29.85
+十堰市 672 110.78 32.65
+仙桃市 575 113.45 30.37
+天门市 496 113.17 30.67
+恩施土家族苗族自治州 252 109.47 30.30
+潜江市 198 112.88 30.42
+神农架林区 11 110.67 31.75
+	</textarea>
+</body>
+	<script src="js/echarts.min.js"></script>
+	<script src="js/china.js"></script>
+	<script src="js/province/hubei.js"></script>
+	<script src="js/province.js"></script>
+	<script src="js/line.js"></script>
+	<script src="js/hubei.js"></script>
+</html>
